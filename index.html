@@ -207,6 +207,11 @@ p.body{font-size:21px;color:var(--cream);max-width:32ch;margin:0 auto;font-weigh
 .sw{width:62px;height:62px;border-radius:50%;border:3px solid var(--cream);box-shadow:0 6px 16px rgba(0,0,0,.5)}
 .sw-cap{font-family:var(--caps);font-size:11px;letter-spacing:.18em;margin-top:8px;color:var(--cream)}
 .formal{font-family:var(--caps);font-size:15px;letter-spacing:.28em;color:var(--lila-soft);margin-top:4px}
+.no-label{font-family:var(--caps);font-size:12px;letter-spacing:.24em;color:#f3c7c4;margin-top:22px}
+.sw.no{position:relative}
+.sw.no::after{content:"";position:absolute;left:50%;top:50%;width:84px;height:3px;border-radius:2px;
+  background:#c8504a;box-shadow:0 0 0 1.5px var(--cream);transform:translate(-50%,-50%) rotate(-45deg)}
+.no-note{font-style:italic;font-size:15px;color:var(--cream);opacity:.85;margin-top:14px}
 
 /* ---------- forms ---------- */
 .field{display:block;text-align:left;max-width:330px;margin:16px auto 0}
@@ -372,10 +377,12 @@ footer small{display:block;font-family:var(--caps);letter-spacing:.3em;font-size
     <div class="divider reveal"><svg viewBox="0 0 24 24"><use href="#sparkle"/></svg></div>
     <h2 class="reveal" style="margin-top:22px">CÓDIGO DE VESTIMENTA</h2>
     <div class="formal reveal">ELEGANTE</div>
-    <div class="swatches reveal">
-      <div><div class="sw" style="background:radial-gradient(circle at 35% 30%,#3f8a6c,#1b5240)"></div><div class="sw-cap">VERDE</div></div>
-      <div><div class="sw" style="background:radial-gradient(circle at 35% 30%,#f6e3a1,#c9a24f 55%,#94712c)"></div><div class="sw-cap">DORADO</div></div>
+    <div class="no-label reveal">COLORES PROHIBIDOS</div>
+    <div class="swatches reveal" style="margin-top:14px">
+      <div><div class="sw no" style="background:radial-gradient(circle at 35% 30%,#3f8a6c,#1b5240)"></div><div class="sw-cap">VERDE</div></div>
+      <div><div class="sw no" style="background:radial-gradient(circle at 35% 30%,#f6e3a1,#c9a24f 55%,#94712c)"></div><div class="sw-cap">DORADO</div></div>
     </div>
+    <p class="no-note reveal">Reservados para la quinceañera</p>
   </section>
 
   <!-- ================= FOTO 6 ================= -->
