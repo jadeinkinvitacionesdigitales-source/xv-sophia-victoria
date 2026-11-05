@@ -47,6 +47,7 @@
   --shadow:0 2px 10px rgba(0,0,0,.65), 0 0 2px rgba(0,0,0,.6);
 }
 *{box-sizing:border-box;margin:0;padding:0}
+[hidden]{display:none!important}
 body{
   background:#071c17;
   color:var(--cream);
@@ -224,6 +225,27 @@ p.body{font-size:21px;color:var(--cream);max-width:32ch;margin:0 auto;font-weigh
 .card{max-width:360px;margin:0 auto;padding:34px 20px 30px;position:relative}
 .card .script{font-size:56px;line-height:1}
 .err{color:#ffd0d0;font-size:15px;margin-top:10px;min-height:1em}
+.ok-msg{color:var(--gold-2);font-size:17px;margin-top:12px;min-height:1em;font-style:italic}
+.btn[disabled]{opacity:.6;pointer-events:none}
+.wa-alt{display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-size:15px;color:var(--cream-2);text-decoration:underline;text-underline-offset:3px}
+.wa-alt svg{width:16px;height:16px;fill:currentColor}
+.thanks .script{font-size:52px}
+.thanks p{font-size:19px;margin-top:10px;font-weight:600}
+
+/* ---------- PASE personalizado ---------- */
+.pase-sec{padding:10px 26px 30px}
+.pase{max-width:340px;margin:0 auto;padding:26px 20px 24px;position:relative}
+.pase::before{content:"";position:absolute;inset:7px;border:1px dashed rgba(212,180,106,.45);border-radius:16px;pointer-events:none}
+.pase-k{font-family:var(--caps);font-size:11px;letter-spacing:.26em;color:var(--lila-soft)}
+.pase-n{font-family:var(--script);font-size:46px;line-height:1.15;margin:6px auto 10px;padding:0 .2em;overflow-wrap:anywhere}
+.pase .divider{width:60%;margin:4px auto 12px}
+.pase-p{font-family:var(--caps);font-size:15px;letter-spacing:.2em;margin-top:6px}
+.pase-p b{display:block;font-size:54px;line-height:1.05;letter-spacing:0;color:var(--gold-2)}
+.pase-s{font-style:italic;font-size:17px;color:var(--cream-2);margin-top:2px}
+.cv-name{position:absolute;left:0;right:0;top:7%;max-width:480px;margin:0 auto;text-align:center;padding:0 24px;
+  font-family:var(--caps);font-size:12px;letter-spacing:.24em;color:var(--lila-soft);text-shadow:0 2px 8px rgba(0,0,0,.95);transition:opacity .5s}
+.cv-name b{display:block;font-family:var(--script);font-weight:400;font-size:40px;letter-spacing:0;color:var(--gold-2);margin-top:2px}
+#cover.open .cv-name{opacity:0}
 
 /* ---------- FOOTER ---------- */
 footer{position:relative;padding:50px 26px 150px;text-align:center;overflow:hidden;text-shadow:var(--shadow)}
@@ -253,6 +275,7 @@ footer small{display:block;font-family:var(--caps);letter-spacing:.3em;font-size
 <!-- ================= COVER ================= -->
 <div id="cover" role="button" aria-label="Toca para abrir la invitación" tabindex="0">
   <video id="intro" src="elementos/intro.mp4" poster="elementos/intro-poster.jpg" muted playsinline preload="auto"></video>
+  <div class="cv-name" id="cvName" hidden>INVITACIÓN PARA<b></b></div>
   <div class="tap">Toca para abrir…</div>
 </div>
 
@@ -277,6 +300,18 @@ footer small{display:block;font-family:var(--caps);letter-spacing:.3em;font-size
       <div class="photo" data-src="fotos/principal.jpg" style="background-position:center 20%"></div>
       <img class="deco" src="elementos/hoja-6.webp" alt="" style="width:140px;left:-54px;bottom:-40px">
       <img class="deco bfly" src="elementos/mariposa.webp" alt="" style="width:60px;right:-22px;top:28%">
+    </div>
+  </section>
+
+  <!-- ================= PASE (solo con enlace personalizado) ================= -->
+  <section class="pase-sec" id="paseSec" hidden>
+    <div class="pase glass reveal">
+      <div class="pase-k">ESTA INVITACIÓN ES PARA</div>
+      <div class="pase-n gold-text" id="paseNombre"></div>
+      <div class="divider"><svg viewBox="0 0 24 24"><use href="#sparkle"/></svg></div>
+      <div class="pase-k">HEMOS RESERVADO</div>
+      <div class="pase-p"><b id="pasePuestos"></b><span id="paseLbl">LUGARES</span></div>
+      <div class="pase-s">en tu honor</div>
     </div>
   </section>
 
@@ -401,15 +436,16 @@ footer small{display:block;font-family:var(--caps);letter-spacing:.3em;font-size
     <p class="body reveal">¿Qué canción no puede faltar en mi fiesta? Ayúdame a armar la playlist perfecta.</p>
     <div class="field reveal"><label for="songIn">Canción y artista</label><input id="songIn" placeholder="Ej.: Vivir mi vida – Marc Anthony"></div>
     <a class="btn reveal" id="songBtn" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3z"/></svg>SUGERIR CANCIÓN</a>
+    <div class="ok-msg" id="songOk"></div>
     <div class="err" id="songErr"></div>
   </section>
 
   <!-- ================= RSVP ================= -->
   <section style="padding-top:90px">
-    <div class="card glass reveal">
+    <div class="card glass reveal" id="rsvpCard">
       <img class="deco bob" src="elementos/sapo-principe.webp" alt="" style="width:110px;left:-14px;top:-74px">
       <div class="script gold-text">Confirmación</div>
-      <p class="body" style="margin-top:6px">Por favor confirma tu asistencia</p>
+      <p class="body" style="margin-top:6px" id="rsvpLead">Por favor confirma tu asistencia</p>
       <div class="field"><label for="nm">Nombre completo</label><input id="nm" placeholder="Escribe tu nombre" autocomplete="name"></div>
       <div class="field"><label for="att">¿Podrás asistir?</label>
         <select id="att">
@@ -418,11 +454,16 @@ footer small{display:block;font-family:var(--caps);letter-spacing:.3em;font-size
           <option value="no">Lo siento, no podré asistir</option>
         </select>
       </div>
-      <div class="field" id="numWrap"><label for="num">Número de personas</label>
+      <div class="field" id="numWrap"><label for="num" id="numLbl">Número de personas</label>
         <select id="num"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option></select>
       </div>
       <a class="btn" id="rsvpBtn" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#wa"/></svg>CONFIRMAR POR WHATSAPP</a>
       <div class="err" id="rsvpErr"></div>
+      <div class="thanks" id="rsvpThanks" hidden>
+        <div class="script gold-text">¡Gracias!</div>
+        <p id="thanksTxt"></p>
+        <a class="wa-alt" id="waAlt" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#wa"/></svg>Avisar también por WhatsApp</a>
+      </div>
     </div>
   </section>
 
@@ -481,13 +522,38 @@ footer small{display:block;font-family:var(--caps);letter-spacing:.3em;font-size
 const CONFIG = {
   whatsapp: '50766714543',                       // +507 6671-4543
   evento:   '2026-11-27T20:00:00-05:00',         // fecha y hora (Panamá)
-  nombre:   'Sophia Victoria'
+  nombre:   'Sophia Victoria',
+  api:      ''                                   // URL de la app web de Google Apps Script (panel)
 };
 /* ===================================================== */
 
 const $ = s => document.querySelector(s);
 document.body.classList.add('locked');
 const wa = msg => `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(msg)}`;
+const send = data => fetch(CONFIG.api, { method: 'POST', body: JSON.stringify(data) })
+  .then(r => r.json()).then(r => { if (!r.ok) throw new Error(r.error); });
+
+/* ---------- invitado del enlace personalizado (?inv=...) ---------- */
+const guest = (() => {
+  try {
+    const raw = new URLSearchParams(location.search).get('inv');
+    if (!raw) return null;
+    const g = JSON.parse(decodeURIComponent(escape(atob(raw.replace(/-/g, '+').replace(/_/g, '/')))));
+    const p = Math.max(1, Math.min(50, parseInt(g.p, 10) || 1));
+    return g.n ? { id: String(g.i || ''), nombre: String(g.n).slice(0, 120), puestos: p } : null;
+  } catch (_) { return null; }
+})();
+if (guest) {
+  $('#cvName b').textContent = guest.nombre; $('#cvName').hidden = false;
+  $('#paseNombre').textContent = guest.nombre;
+  $('#pasePuestos').textContent = guest.puestos;
+  $('#paseLbl').textContent = guest.puestos === 1 ? 'LUGAR' : 'LUGARES';
+  $('#paseSec').hidden = false;
+  $('#nm').value = guest.nombre;
+  $('#num').innerHTML = Array.from({ length: guest.puestos }, (_, i) => `<option>${i + 1}</option>`).join('');
+  $('#num').value = guest.puestos;
+  $('#numLbl').textContent = `Número de personas (máx. ${guest.puestos})`;
+}
 
 /* ---------- cover / music ---------- */
 const song = $('#song'), cover = $('#cover');
@@ -544,23 +610,52 @@ tick(); setInterval(tick, 1000);
   for (let d = 1; d <= days; d++) cal.insertAdjacentHTML('beforeend', `<div class="d${d === hl ? ' hl' : ''}">${d}</div>`);
 })();
 
-/* ---------- WhatsApp actions ---------- */
+/* ---------- confirmación y playlist ---------- */
+// Con CONFIG.api las respuestas se guardan en Google Sheets (panel); sin ella se envían por WhatsApp.
+// Los botones son enlaces reales (no window.open): el href de WhatsApp se arma justo antes de abrirlo.
 $('#att').onchange = e => $('#numWrap').style.display = e.target.value === 'no' ? 'none' : '';
-// enlaces reales (no window.open): el href se arma justo antes de abrir WhatsApp
+if (CONFIG.api) {
+  $('#rsvpBtn').innerHTML = '<svg viewBox="0 0 24 24"><use href="#sparkle"/></svg>CONFIRMAR ASISTENCIA';
+  $('#songBtn').removeAttribute('target');
+}
+const rsvpMsg = (n, a, p) => a === 'si'
+  ? `¡Hola! Soy ${n} y confirmo mi asistencia a los XV años de ${CONFIG.nombre}. Asistiremos ${p} persona(s). ✨`
+  : `¡Hola! Soy ${n}. Lamentablemente no podré asistir a los XV años de ${CONFIG.nombre}. ¡Muchas felicidades! 💚`;
+const songMsg = s => `🎶 Sugerencia para la playlist de los XV de ${CONFIG.nombre}: ${s}`;
+
 $('#rsvpBtn').onclick = e => {
-  const n = $('#nm').value.trim(), a = $('#att').value;
+  const btn = e.currentTarget, n = $('#nm').value.trim(), a = $('#att').value, p = a === 'si' ? +$('#num').value : 0;
   if (!n || !a) { e.preventDefault(); $('#rsvpErr').textContent = 'Por favor escribe tu nombre y elige una opción.'; return; }
   $('#rsvpErr').textContent = '';
-  const msg = a === 'si'
-    ? `¡Hola! Soy ${n} y confirmo mi asistencia a los XV años de ${CONFIG.nombre}. Asistiremos ${$('#num').value} persona(s). ✨`
-    : `¡Hola! Soy ${n}. Lamentablemente no podré asistir a los XV años de ${CONFIG.nombre}. ¡Muchas felicidades! 💚`;
-  e.currentTarget.href = wa(msg);
+  if (!CONFIG.api) { btn.href = wa(rsvpMsg(n, a, p)); return; }
+  e.preventDefault();
+  btn.setAttribute('disabled', ''); btn.lastChild.textContent = 'ENVIANDO…';
+  send({ action: 'rsvp', id: guest ? guest.id : '', nombre: n, asistencia: a, personas: p })
+    .then(() => {
+      [...$('#rsvpCard').children].forEach(el => { if (!el.matches('.script,.deco,#rsvpThanks')) el.hidden = true; });
+      $('#rsvpCard > .script').hidden = true;
+      $('#thanksTxt').textContent = a === 'si'
+        ? `${n}, tu asistencia quedó confirmada para ${p} persona${p === 1 ? '' : 's'}. ¡Te espero!`
+        : `${n}, recibimos tu respuesta. ¡Gracias por avisar!`;
+      $('#waAlt').href = wa(rsvpMsg(n, a, p));
+      $('#rsvpThanks').hidden = false;
+    })
+    .catch(() => {
+      btn.removeAttribute('disabled'); btn.lastChild.textContent = 'CONFIRMAR ASISTENCIA';
+      $('#rsvpErr').innerHTML = `No se pudo enviar. Inténtalo de nuevo o <a href="${wa(rsvpMsg(n, a, p))}" target="_blank" rel="noopener" style="color:inherit">confirma por WhatsApp</a>.`;
+    });
 };
 $('#songBtn').onclick = e => {
-  const s = $('#songIn').value.trim();
+  const btn = e.currentTarget, s = $('#songIn').value.trim();
   if (!s) { e.preventDefault(); $('#songErr').textContent = 'Escribe la canción que quieres sugerir.'; return; }
-  $('#songErr').textContent = '';
-  e.currentTarget.href = wa(`🎶 Sugerencia para la playlist de los XV de ${CONFIG.nombre}: ${s}`);
+  $('#songErr').textContent = ''; $('#songOk').textContent = '';
+  if (!CONFIG.api) { btn.href = wa(songMsg(s)); return; }
+  e.preventDefault();
+  btn.setAttribute('disabled', '');
+  send({ action: 'song', id: guest ? guest.id : '', nombre: guest ? guest.nombre : $('#nm').value.trim(), cancion: s })
+    .then(() => { $('#songIn').value = ''; $('#songOk').textContent = '¡Gracias! Tu canción ya está en la lista 🎶'; })
+    .catch(() => { $('#songErr').textContent = 'No se pudo enviar. Inténtalo de nuevo en un momento.'; })
+    .finally(() => btn.removeAttribute('disabled'));
 };
 
 /* ---------- reveal on scroll ---------- */

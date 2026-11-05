@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Panel XV Sophia</title>
+<meta name="theme-color" content="#0b2a24">
+<link rel="icon" href="elementos/mariposa.webp" type="image/webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#071c17;--panel:#0d2b24;--panel-2:#123a30;--line:rgba(212,180,106,.35);
+  --cream:#f6efdc;--cream-2:#cfc6ae;--gold:#d4b46a;--gold-2:#f1dc9c;--gold-3:#a8853b;
+  --ok:#8fd4a8;--no:#f0a5a0;--wait:#e8d28a;
+  --caps:'Cinzel',serif;--serif:'Cormorant Garamond',Georgia,serif;--script:'Great Vibes',cursive;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+[hidden]{display:none!important}
+body{background:var(--bg) url(elementos/fondo-estanque.webp) center/cover fixed;color:var(--cream);font-family:var(--serif);font-size:18px;line-height:1.45;min-height:100vh}
+body::before{content:"";position:fixed;inset:0;background:rgba(5,22,18,.86);z-index:-1}
+.wrap{max-width:980px;margin:0 auto;padding:22px 16px 60px}
+h1{font-family:var(--script);font-weight:400;font-size:52px;line-height:1;color:var(--gold-2);text-align:center}
+.sub{font-family:var(--caps);font-size:12px;letter-spacing:.3em;text-align:center;color:var(--cream-2);margin-top:4px}
+.card{background:rgba(13,43,36,.88);border:1px solid var(--line);border-radius:18px;padding:20px;margin-top:18px}
+.card h2{font-family:var(--caps);font-size:15px;letter-spacing:.18em;color:var(--gold-2);margin-bottom:12px}
+label{display:block;font-family:var(--caps);font-size:11px;letter-spacing:.16em;color:var(--gold-2);margin-bottom:6px}
+input{width:100%;font:inherit;font-size:18px;color:var(--cream);background:rgba(4,20,16,.8);border:1px solid var(--line);border-radius:12px;padding:11px 13px;outline:none}
+input:focus{border-color:var(--gold-2);box-shadow:0 0 0 3px rgba(212,180,106,.22)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--caps);font-weight:700;font-size:13px;letter-spacing:.1em;
+  color:#0b2a24;background:linear-gradient(180deg,var(--gold-2),var(--gold) 55%,var(--gold-3));border:0;border-radius:999px;padding:12px 22px;cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn:disabled{opacity:.55;cursor:default}
+.btn.ghost{background:transparent;color:var(--gold-2);border:1px solid var(--line)}
+.btn.sm{padding:7px 12px;font-size:11px}
+.btn svg{width:16px;height:16px;fill:currentColor}
+.row{display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap}
+.row > .grow{flex:1 1 220px}
+.row > .seats{flex:0 0 110px}
+.err{color:var(--no);font-size:16px;margin-top:10px;min-height:1em}
+.muted{color:var(--cream-2);opacity:.75}
+
+/* login */
+.login{max-width:360px;margin:12vh auto 0;text-align:center}
+.login .btn{margin-top:14px;width:100%}
+
+/* top bar */
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:16px;flex-wrap:wrap}
+.top .muted{font-size:15px}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:14px}
+.stat{background:rgba(13,43,36,.88);border:1px solid var(--line);border-radius:14px;padding:14px 10px;text-align:center}
+.stat b{display:block;font-family:var(--caps);font-size:30px;color:var(--gold-2);line-height:1.1}
+.stat span{font-family:var(--caps);font-size:10px;letter-spacing:.14em;color:var(--cream-2)}
+.stat.ok b{color:var(--ok)} .stat.no b{color:var(--no)} .stat.wait b{color:var(--wait)}
+
+/* tabs */
+.tabs{display:flex;gap:6px;margin-top:22px;border-bottom:1px solid var(--line);overflow-x:auto}
+.tab{font-family:var(--caps);font-size:12px;letter-spacing:.14em;color:var(--cream-2);background:none;border:0;padding:10px 14px;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap}
+.tab[aria-selected="true"]{color:var(--gold-2);border-bottom-color:var(--gold-2)}
+.tab .n{display:inline-block;min-width:20px;padding:0 6px;margin-left:6px;border-radius:999px;background:rgba(212,180,106,.18);color:var(--gold-2);font-size:11px}
+
+/* new link */
+.newlink{margin-top:14px;padding:14px;border-radius:14px;background:rgba(4,20,16,.7);border:1px dashed var(--gold)}
+.newlink .url{font-family:ui-monospace,Consolas,monospace;font-size:13px;word-break:break-all;color:var(--cream-2);margin:6px 0 10px}
+.newlink .acts{display:flex;gap:8px;flex-wrap:wrap}
+
+/* lists */
+.list{margin-top:6px}
+.item{display:grid;grid-template-columns:1fr auto;gap:6px 14px;align-items:center;padding:13px 2px;border-bottom:1px solid rgba(212,180,106,.18)}
+.item:last-child{border-bottom:0}
+.item .name{font-weight:700;font-size:19px;overflow-wrap:anywhere}
+.item .meta{font-size:15px;color:var(--cream-2)}
+.item .acts{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.pill{display:inline-block;font-family:var(--caps);font-size:10px;letter-spacing:.12em;padding:3px 9px;border-radius:999px;margin-right:6px;vertical-align:2px}
+.pill.ok{background:rgba(143,212,168,.16);color:var(--ok)} .pill.no{background:rgba(240,165,160,.16);color:var(--no)} .pill.wait{background:rgba(232,210,138,.14);color:var(--wait)}
+.song{font-size:20px;font-weight:700}
+.empty{padding:26px 0;text-align:center;color:var(--cream-2);font-style:italic}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);opacity:0;transition:.3s;background:var(--gold-2);color:#0b2a24;
+  font-family:var(--caps);font-size:12px;letter-spacing:.1em;font-weight:700;padding:10px 18px;border-radius:999px;pointer-events:none;z-index:9}
+.toast.on{opacity:1;transform:translateX(-50%)}
+.filter{margin:4px 0 6px;display:flex;gap:6px;flex-wrap:wrap}
+.chip{font-family:var(--caps);font-size:10px;letter-spacing:.12em;padding:6px 11px;border-radius:999px;border:1px solid var(--line);background:none;color:var(--cream-2);cursor:pointer}
+.chip[aria-pressed="true"]{background:rgba(212,180,106,.2);color:var(--gold-2);border-color:var(--gold)}
+
+@media (max-width:640px){
+  .stats{grid-template-columns:repeat(3,1fr)}
+  .stats .stat:nth-child(n+4){grid-column:span 1}
+  .item{grid-template-columns:1fr}
+  .item .acts{justify-content:flex-start}
+  h1{font-size:44px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Sophia Victoria</h1>
+  <div class="sub">PANEL DE LA INVITACIÓN · XV AÑOS</div>
+
+  <!-- ===== acceso ===== -->
+  <div class="card login" id="login" hidden>
+    <h2>ENTRAR AL PANEL</h2>
+    <label for="clave">Clave</label>
+    <input id="clave" type="password" autocomplete="current-password" placeholder="Escribe la clave">
+    <button class="btn" id="entrar">ENTRAR</button>
+    <div class="err" id="loginErr"></div>
+  </div>
+
+  <div class="card" id="setup" hidden>
+    <h2>FALTA CONECTAR GOOGLE SHEETS</h2>
+    <p>El panel todavía no tiene la dirección de la base de datos. Sigue los pasos de <b>INSTRUCCIONES-PANEL.txt</b> y pega la URL de la app web en <code>API</code> dentro de panel.html y en <code>CONFIG.api</code> dentro de index.html.</p>
+  </div>
+
+  <!-- ===== panel ===== -->
+  <div id="app" hidden>
+    <div class="top">
+      <span class="muted" id="updated"></span>
+      <span style="display:flex;gap:8px">
+        <button class="btn ghost sm" id="refresh">↻ ACTUALIZAR</button>
+        <button class="btn ghost sm" id="salir">SALIR</button>
+      </span>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><b id="sInv">0</b><span>INVITACIONES</span></div>
+      <div class="stat"><b id="sSeats">0</b><span>LUGARES ASIGNADOS</span></div>
+      <div class="stat ok"><b id="sYes">0</b><span>PERSONAS CONFIRMADAS</span></div>
+      <div class="stat no"><b id="sNo">0</b><span>NO ASISTIRÁN</span></div>
+      <div class="stat wait"><b id="sWait">0</b><span>SIN RESPONDER</span></div>
+    </div>
+
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" data-tab="inv" aria-selected="true">INVITADOS<span class="n" id="nInv">0</span></button>
+      <button class="tab" role="tab" data-tab="resp" aria-selected="false">CONFIRMACIONES<span class="n" id="nResp">0</span></button>
+      <button class="tab" role="tab" data-tab="songs" aria-selected="false">CANCIONES<span class="n" id="nSongs">0</span></button>
+    </div>
+
+    <!-- invitados -->
+    <section data-pane="inv">
+      <div class="card">
+        <h2>CREAR ENLACE PERSONALIZADO</h2>
+        <div class="row">
+          <div class="grow"><label for="gName">Nombre del invitado o familia</label><input id="gName" placeholder="Ej.: Familia Pérez González" maxlength="80"></div>
+          <div class="seats"><label for="gSeats">Puestos</label><input id="gSeats" type="number" min="1" max="50" value="2" inputmode="numeric"></div>
+          <button class="btn" id="create">CREAR ENLACE</button>
+        </div>
+        <div class="err" id="createErr"></div>
+        <div class="newlink" id="newlink" hidden>
+          <label>Enlace listo para <span id="nlName"></span></label>
+          <div class="url" id="nlUrl"></div>
+          <div class="acts">
+            <button class="btn sm" id="nlCopy">COPIAR ENLACE</button>
+            <a class="btn sm ghost" id="nlWa" href="#" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#wa"/></svg>ENVIAR POR WHATSAPP</a>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h2>LISTA DE INVITADOS</h2>
+        <div class="filter" id="invFilter">
+          <button class="chip" data-f="all" aria-pressed="true">TODOS</button>
+          <button class="chip" data-f="si" aria-pressed="false">CONFIRMARON</button>
+          <button class="chip" data-f="no" aria-pressed="false">NO ASISTIRÁN</button>
+          <button class="chip" data-f="wait" aria-pressed="false">SIN RESPONDER</button>
+        </div>
+        <div class="list" id="invList"></div>
+      </div>
+    </section>
+
+    <!-- confirmaciones -->
+    <section data-pane="resp" hidden>
+      <div class="card">
+        <h2>CONFIRMACIONES RECIBIDAS</h2>
+        <div class="list" id="respList"></div>
+      </div>
+    </section>
+
+    <!-- canciones -->
+    <section data-pane="songs" hidden>
+      <div class="card">
+        <div class="top" style="margin:0 0 6px"><h2 style="margin:0">CANCIONES RECOMENDADAS</h2><button class="btn ghost sm" id="copySongs">COPIAR LISTA</button></div>
+        <div class="list" id="songList"></div>
+      </div>
+    </section>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="wa" viewBox="0 0 24 24">
+    <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.450 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21c5.46 0 9.91-4.45 9.910-9.91S17.5 2 12.04 2zm5.8 14.03c-.24.68-1.42 1.3-1.96 1.36-.5.06-1.13.09-1.820-.12-.42-.13-.96-.31-1.65-.61-2.9-1.25-4.79-4.17-4.94-4.36-.14-.2-1.18-1.57-1.18-3s.75-2.13 1.02-2.42c.27-.29.58-.36.78-.36h.56c.18 0 .42-.07.66.5.24.58.83 2.01.9 2.15.07.15.12.32.02.51-.1.2-.15.32-.29.49-.15.17-.31.38-.44.51-.15.15-.3.3-.13.6.17.29.76 1.25 1.63 2.03 1.12 1 2.07 1.31 2.36 1.46.29.15.46.12.63-.07.17-.2.73-.85.92-1.14.2-.29.39-.24.66-.15.27.1 1.7.8 1.99.95.29.15.49.22.56.34.07.12.07.7-.17 1.38z"/>
+  </symbol>
+</svg>
+
+<script>
+/* ======================= CONFIG ======================= */
+const API  = '';    // URL de la app web de Google Apps Script (la misma que CONFIG.api en index.html)
+const SITE = 'https://jadeinkinvitacionesdigitales-source.github.io/xv-sophia-victoria/';
+/* ===================================================== */
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const store = { get: k => { try { return localStorage.getItem(k); } catch (_) { return null; } },
+                set: (k, v) => { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch (_) {} } };
+let clave = store.get('xv-sophia-clave') || '';
+let data = { invitados: [], respuestas: [], canciones: [] };
+let filtro = 'all';
+
+function toast(t){ const el = $('#toast'); el.textContent = t; el.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.remove('on'), 1800); }
+function fecha(iso){ if (!iso) return ''; const d = new Date(iso); return d.toLocaleDateString('es-PA', { day: 'numeric', month: 'short' }) + ' · ' + d.toLocaleTimeString('es-PA', { hour: 'numeric', minute: '2-digit' }); }
+const plural = (n, s, p) => `${n} ${n === 1 ? s : p}`;
+
+/* ---------- enlaces ---------- */
+const b64url = s => btoa(unescape(encodeURIComponent(s))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+const linkFor = g => `${SITE}?inv=${b64url(JSON.stringify({ i: g.id, n: g.nombre, p: +g.puestos }))}`;
+const waFor = g => 'https://wa.me/?text=' + encodeURIComponent(
+  `¡Hola, ${g.nombre}! ✨ Con mucho cariño te invito a celebrar mis XV años. Tienes ${plural(+g.puestos, 'lugar reservado', 'lugares reservados')}.\n\nAquí está tu invitación:\n${linkFor(g)}\n\n— Sophia Victoria 💚`);
+const newId = () => Array.from(crypto.getRandomValues(new Uint8Array(6)), b => 'abcdefghjkmnpqrstuvwxyz23456789'[b % 31]).join('');
+async function copy(t){ try { await navigator.clipboard.writeText(t); } catch (_) { const a = document.createElement('textarea'); a.value = t; document.body.append(a); a.select(); document.execCommand('copy'); a.remove(); } toast('COPIADO'); }
+
+/* ---------- API ---------- */
+async function load(){
+  $('#refresh').disabled = true;
+  try {
+    const r = await fetch(`${API}?clave=${encodeURIComponent(clave)}&t=${Date.now()}`).then(r => r.json());
+    if (!r.ok) { if (r.error === 'clave') return showLogin('Clave incorrecta.'); throw new Error(r.error); }
+    data = r; render();
+    $('#updated').textContent = 'Actualizado ' + new Date().toLocaleTimeString('es-PA', { hour: 'numeric', minute: '2-digit' });
+  } catch (e) {
+    toast('NO SE PUDO CARGAR');
+    $('#updated').textContent = 'No se pudo cargar. Revisa tu conexión y toca Actualizar.';
+  } finally { $('#refresh').disabled = false; }
+}
+const post = body => fetch(API, { method: 'POST', body: JSON.stringify({ ...body, clave }) }).then(r => r.json()).then(r => { if (!r.ok) throw new Error(r.error); });
+
+/* ---------- respuestas: la última de cada invitado manda ---------- */
+function ultimas(){
+  const m = new Map();
+  [...data.respuestas].sort((a, b) => new Date(a.fecha) - new Date(b.fecha))
+    .forEach(r => m.set(r.id ? 'id:' + r.id : 'n:' + String(r.nombre).trim().toLowerCase(), r));
+  return m;
+}
+
+function render(){
+  const last = ultimas();
+  const inv = data.invitados.map(g => ({ ...g, r: last.get('id:' + g.id) }));
+  const vals = [...last.values()];
+  $('#sInv').textContent = inv.length;
+  $('#sSeats').textContent = inv.reduce((s, g) => s + (+g.puestos || 0), 0);
+  $('#sYes').textContent = vals.filter(r => r.asistencia === 'si').reduce((s, r) => s + (+r.personas || 0), 0);
+  $('#sNo').textContent = vals.filter(r => r.asistencia === 'no').length;
+  $('#sWait').textContent = inv.filter(g => !g.r).length;
+  $('#nInv').textContent = inv.length; $('#nResp').textContent = vals.length; $('#nSongs').textContent = data.canciones.length;
+
+  // invitados
+  const shown = inv.filter(g => filtro === 'all' || (filtro === 'wait' ? !g.r : g.r && g.r.asistencia === filtro))
+                   .sort((a, b) => String(a.nombre).localeCompare(String(b.nombre), 'es'));
+  $('#invList').innerHTML = shown.length ? shown.map(g => {
+    const st = !g.r ? '<span class="pill wait">SIN RESPONDER</span>'
+      : g.r.asistencia === 'si' ? `<span class="pill ok">CONFIRMÓ ${g.r.personas}</span>` : '<span class="pill no">NO ASISTIRÁ</span>';
+    return `<div class="item" data-id="${esc(g.id)}">
+      <div><div class="name">${esc(g.nombre)}</div><div class="meta">${st}${plural(+g.puestos, 'puesto', 'puestos')}</div></div>
+      <div class="acts">
+        <button class="btn sm" data-act="copy">COPIAR</button>
+        <a class="btn sm ghost" data-act="wa" href="${esc(waFor(g))}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><use href="#wa"/></svg>ENVIAR</a>
+        <button class="btn sm ghost" data-act="del" title="Eliminar">✕</button>
+      </div></div>`;
+  }).join('') : `<div class="empty">${inv.length ? 'Nadie en este filtro.' : 'Todavía no has creado enlaces. Escribe un nombre arriba y toca “Crear enlace”.'}</div>`;
+
+  // confirmaciones (la más reciente primero)
+  const byId = Object.fromEntries(data.invitados.map(g => [g.id, g]));
+  $('#respList').innerHTML = vals.length ? vals.sort((a, b) => new Date(b.fecha) - new Date(a.fecha)).map(r => {
+    const g = byId[r.id];
+    const st = r.asistencia === 'si' ? `<span class="pill ok">ASISTIRÁ · ${plural(+r.personas, 'PERSONA', 'PERSONAS')}</span>` : '<span class="pill no">NO ASISTIRÁ</span>';
+    const extra = g && g.nombre !== r.nombre ? ` · enlace de ${esc(g.nombre)} (${g.puestos})` : g ? ` · de ${plural(+g.puestos, 'puesto', 'puestos')}` : ' · enlace general';
+    return `<div class="item"><div><div class="name">${esc(r.nombre)}</div><div class="meta">${st}${fecha(r.fecha)}${extra}</div></div></div>`;
+  }).join('') : '<div class="empty">Aún no hay confirmaciones.</div>';
+
+  // canciones
+  $('#songList').innerHTML = data.canciones.length ? [...data.canciones].sort((a, b) => new Date(b.fecha) - new Date(a.fecha)).map(c =>
+    `<div class="item"><div><div class="song">🎶 ${esc(c.cancion)}</div><div class="meta">${c.nombre ? 'Sugerida por ' + esc(c.nombre) + ' · ' : ''}${fecha(c.fecha)}</div></div></div>`
+  ).join('') : '<div class="empty">Aún no hay canciones sugeridas.</div>';
+}
+
+/* ---------- acciones ---------- */
+$('#create').onclick = async () => {
+  const nombre = $('#gName').value.trim().replace(/\s+/g, ' '), puestos = Math.max(1, Math.min(50, parseInt($('#gSeats').value, 10) || 0));
+  $('#createErr').textContent = '';
+  if (!nombre) return $('#createErr').textContent = 'Escribe el nombre del invitado.';
+  if (!parseInt($('#gSeats').value, 10)) return $('#createErr').textContent = 'Indica cuántos puestos tiene.';
+  const g = { id: newId(), nombre, puestos };
+  $('#create').disabled = true; $('#create').textContent = 'CREANDO…';
+  try {
+    await post({ action: 'addGuest', ...g });
+    data.invitados.push({ ...g, creado: new Date().toISOString() }); render();
+    $('#nlName').textContent = `${nombre} (${plural(puestos, 'puesto', 'puestos')})`;
+    $('#nlUrl').textContent = linkFor(g); $('#nlWa').href = waFor(g); $('#newlink').hidden = false;
+    $('#nlCopy').onclick = () => copy(linkFor(g));
+    $('#gName').value = ''; $('#gName').focus();
+  } catch (e) {
+    $('#createErr').textContent = e.message === 'clave' ? 'La clave no es válida.' : 'No se pudo guardar. Inténtalo de nuevo.';
+  } finally { $('#create').disabled = false; $('#create').textContent = 'CREAR ENLACE'; }
+};
+$('#gName').onkeydown = e => { if (e.key === 'Enter') $('#create').click(); };
+
+$('#invList').onclick = async e => {
+  const b = e.target.closest('[data-act]'); if (!b) return;
+  const id = b.closest('.item').dataset.id, g = data.invitados.find(x => String(x.id) === id);
+  if (b.dataset.act === 'copy') copy(linkFor(g));
+  if (b.dataset.act === 'del') {
+    if (!confirm(`¿Eliminar a “${g.nombre}” de la lista?\nSu enlace seguirá abriendo la invitación, pero dejará de aparecer aquí.`)) return;
+    b.disabled = true;
+    try { await post({ action: 'delGuest', id }); data.invitados = data.invitados.filter(x => String(x.id) !== id); render(); toast('ELIMINADO'); }
+    catch (_) { b.disabled = false; toast('NO SE PUDO ELIMINAR'); }
+  }
+};
+$('#invFilter').onclick = e => {
+  const c = e.target.closest('.chip'); if (!c) return;
+  filtro = c.dataset.f; document.querySelectorAll('#invFilter .chip').forEach(x => x.setAttribute('aria-pressed', x === c)); render();
+};
+$('#copySongs').onclick = () => copy(data.canciones.map((c, i) => `${i + 1}. ${c.cancion}`).join('\n') || '');
+document.querySelectorAll('.tab').forEach(t => t.onclick = () => {
+  document.querySelectorAll('.tab').forEach(x => x.setAttribute('aria-selected', x === t));
+  document.querySelectorAll('[data-pane]').forEach(p => p.hidden = p.dataset.pane !== t.dataset.tab);
+  store.set('xv-sophia-tab', t.dataset.tab);
+});
+$('#refresh').onclick = load;
+$('#salir').onclick = () => { store.set('xv-sophia-clave', null); clave = ''; showLogin(''); };
+
+/* ---------- acceso ---------- */
+function showLogin(msg){ $('#app').hidden = true; $('#login').hidden = false; $('#loginErr').textContent = msg || ''; $('#clave').focus(); }
+$('#entrar').onclick = () => {
+  clave = $('#clave').value.trim(); if (!clave) return;
+  store.set('xv-sophia-clave', clave); $('#login').hidden = true; $('#app').hidden = false; load();
+};
+$('#clave').onkeydown = e => { if (e.key === 'Enter') $('#entrar').click(); };
+
+if (!API) $('#setup').hidden = false;
+else if (!clave) showLogin();
+else { $('#app').hidden = false; load(); }
+const tabGuardada = store.get('xv-sophia-tab'); if (tabGuardada) { const t = document.querySelector(`.tab[data-tab="${tabGuardada}"]`); if (t) t.click(); }
+setInterval(() => { if (!$('#app').hidden && document.visibilityState === 'visible') load(); }, 60000);
+</script>
+</body>
+</html>
